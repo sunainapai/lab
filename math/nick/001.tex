@@ -1,0 +1,129 @@
+\documentclass{article}
+\usepackage[a4paper]{geometry}
+\usepackage{parskip}
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref}
+\usepackage{amsmath}
+\urlstyle{same}
+\title{Folded Sheet of Paper}
+\date{}
+\begin{document}
+\maketitle
+
+\section*{Problem}
+A rectangular sheet of paper is folded so that two diagonally opposite
+corners come together. If the crease formed is the same length as the
+longer side of the sheet, what is the ratio of the longer side of the
+sheet to the shorter side?
+
+Source: \url{http://www.qbyte.org/puzzles/puzzle01.html#p1}
+
+\section*{Solution}
+Let us represent the sheet of paper as a rectangle \( ABCD \) where
+\( AB > BC \). Let us represent the crease with the line segment
+\( EF \) such that the crease \( EF \) meets \( AB \) and \( DC \) at
+\( E \) and \( F \), respectively. Let \( H \) be a point on \( DC \)
+such that \( EH \perp DC \).
+
+\begin{verbatim}
+A          E    B
++---------------+ 
+|.        /.    |  
+| .      / .    |  
+|  .    /  .    | a
+| p .  / b .    |  
+|    ./    .    |  
++---------------+
+D     F    H    C
+      <--- p --->
+<------ b ------>
+\end{verbatim}
+
+Let us define some of the line segments with single letter variables:
+\begin{align*}
+AB & = DC = b, \\
+AD & = BC = a, \\
+AF & = FC = p.
+\end{align*}
+Note that when the sheet is folded to meet at corners \( A \) and
+\( C \), \( FC \) coincides with \( AF \). This justifies \( AF = FC \).
+
+Since the length of the crease is same as longer side, we get
+\[
+EF = b.
+\]
+
+We compute \( DF \) as
+\begin{equation}
+\label{df}
+DF = b - p.
+\end{equation}
+
+\begin{verbatim}
+A          E    B
++---------------+ 
+|.        /.    |  
+| .      / .    |  
+|  .    /  .    | a
+| p .  / b .    |  
+|    ./    .    |  
++---------------+
+D     F    H    C
+      <--- p --->
+<------ b ------>
+\end{verbatim}
+
+By applying Pythagorean theorem to the right-angled \( \triangle ADF \),
+we get
+\begin{align*}
+AF^2 = AD^2 + DF^2
+& \implies p^2  = a^2 + (b - p)^2 \\
+& \iff     p^2  = a^2 + b^2 + p^2 - 2bp \\
+& \iff     p    = \frac{a^2 + b^2}{2b}.
+\end{align*}
+
+If we turn the rectangle upside down, the problem remains the same, i.e.
+\( EB \) appears in the modified problem where \( DF \) is in the
+original problem. Therefore by symmetry and \eqref{df},
+\[
+DF = EB = HC = b - p.
+\]
+
+Now we compute \( FH \) as
+\begin{align*}
+FH & = DC - DF - HC \\
+   & = b - 2(b - p) \\
+   & = b - 2b + 2p \\
+   & = 2p - b \\
+   & = \frac{2 \left( a^2 + b^2 \right)}{2b} - b \\
+   & = \frac{a^2 + b^2}{b} - b \\
+   & = \frac{a^2 + b^2 - b^2}{b} \\
+   & = \frac{a^2}{b}.
+\end{align*}
+
+By applying Pythagorean theorem to the right-angled \( \triangle EFH \)
+we get
+\begin{align}
+EH^2 + FH^2 = EF^2 & \implies a^2 + \left( \frac{a^2}{b} \right)^2 = b^2
+                     \nonumber \\
+                   & \iff b^4 - a^2 b^2 - a^4 = 0.
+                     \label{eq2}
+\end{align}
+
+Let \( \left( \frac{b}{a} \right)^2 = x \). Then \( b^2 = a^2 x \).
+Substituting this in \eqref{eq2} we get
+\begin{align*}
+b^4 - a^2 b^2 - a^4 = 0 & \iff a^4 x^2 - a^4 x - a^4 = 0 \\
+                        & \iff a^4 (x^2 - x - 1) = 0.
+\end{align*}
+Since \( a \neq 0 \), we have \( x^2 - x - 1 = 0 \). Therefore
+\[
+x = \frac{1 \pm \sqrt{1 + 4}}{2} = \frac{1 \pm \sqrt{5}}{2}.
+\]
+Since \( x > 0 \), we ignore the negative result for \( x \) and we get
+\begin{align*}
+x = \frac{1 + \sqrt{5}}{2}
+& \iff \left( \frac{b}{a} \right)^2 = \frac{1 + \sqrt{5}}{2} \\
+& \iff \frac{b}{a} = \sqrt{\frac{1 + \sqrt{5}}{2}}.
+\end{align*}
+
+\end{document}
