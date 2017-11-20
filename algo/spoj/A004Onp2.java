@@ -1,9 +1,11 @@
 // http://www.spoj.com/problems/ONP/
 
+// Reverse Polish Notation
+
 import java.util.Scanner;
 import java.util.Stack;
 
-public class A004ReversePolishNotation {
+public class A004Onp2 {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -16,52 +18,59 @@ public class A004ReversePolishNotation {
 
     public static String transform(String exp) {
         Stack<String> stack = new Stack<String>();
-        String result = "";
+        StringBuilder output = new StringBuilder();
+        String item = "";
 
         for (int i = 0; i < exp.length(); i++) {
-            String left = "";
-            String right = "";
-            String op = "";
             String s = String.valueOf(exp.charAt(i));
 
             switch(s) {
-                case "(": break;
-                case ")": if (!stack.isEmpty()) {
-                                right = stack.pop();
-                                if (!stack.isEmpty()) {
-                                    op = stack.pop();
+                case "(":
+                case "+":
+                case "-":
+                case "*":
+                case "/":
+                case "^": stack.push(s);
+                          break;
+                case ")": while (!stack.isEmpty()) {
+                                item = stack.pop();
+
+                                if (item.equals("(")) {
+                                    break;
                                 }
-                                if (!stack.isEmpty()) {
-                                    left = stack.pop();
-                                }
-                                stack.push(left + right + op);
+
+                                output.append(item);
                            }
                            break;
-                default: stack.push(s);
+                default: output.append(s);
                          break;
             }
         }
 
-        if (!stack.isEmpty()) {
-            result = stack.pop();
+        while (!stack.isEmpty()) {
+            item = stack.pop();
+
+            if (!item.equals("(")) {
+                output.append(item);
+            }
         }
 
-        return result;
+        return output.toString();
     }
 }
 
 class A004Test {
 
     public static void main(String[] args) {
-        String actual = A004ReversePolishNotation.transform("(a+(b*c))");
+        String actual = A004Onp2.transform("(a+(b*c))");
         String expected = "abc*+";
         System.out.println(expected.equals(actual) ? "PASS" : "FAIL");
 
-        actual = A004ReversePolishNotation.transform("((a+b)*(z+x))");
+        actual = A004Onp2.transform("((a+b)*(z+x))");
         expected = "ab+zx+*";
         System.out.println(expected.equals(actual) ? "PASS" : "FAIL");
 
-        actual = A004ReversePolishNotation.transform("((a+t)*((b+(a+c))^(c+d)))");
+        actual = A004Onp2.transform("((a+t)*((b+(a+c))^(c+d)))");
         expected = "at+bac++cd+^*";
         System.out.println(expected.equals(actual) ? "PASS" : "FAIL");
     }
