@@ -1,0 +1,6 @@
+[Service]
+User=bar
+ExecStart=/usr/local/bin/bar.py
+
+[Install]
+WantedBy=multi-user.target
