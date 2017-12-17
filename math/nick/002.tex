@@ -3,6 +3,7 @@
 \usepackage{parskip}
 \usepackage[colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref}
 \usepackage{amsmath}
+\usepackage{tikz}
 \urlstyle{same}
 \title{Triangular Area}
 \date{}
@@ -17,8 +18,6 @@ at \( D \), and from \( C \) to \( AB \), meeting at \( E \).  Let \( BD
 area \( c \).  Find the area of quadrilateral \( AEXD \) in terms of \(
 a \), \( b \), and \( c \).
 
-% TODO: Include diagram
-
 Source: \url{http://www.qbyte.org/puzzles/puzzle01.html#p2}
 
 \section*{Solution}
@@ -28,6 +27,8 @@ x + y \) in terms of \( a \), \( b \), and \( c \).
 
 Extend the line segments \( CE \) and \( BD \) such that \( BH \) meets \( CE
 \) and \( CG \) meets \( BD \) at right angles.
+
+\input{fig/002.fig.tex}
 
 We know that the triangles with collinear bases have a common height and
 also their areas are in the ratio of their respective bases that are

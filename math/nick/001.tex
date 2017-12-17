@@ -3,6 +3,7 @@
 \usepackage{parskip}
 \usepackage[colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref}
 \usepackage{amsmath}
+\usepackage{tikz}
 \urlstyle{same}
 \title{Folded Sheet of Paper}
 \date{}
@@ -24,19 +25,7 @@ Let us represent the sheet of paper as a rectangle \( ABCD \) where
 \( E \) and \( F \), respectively. Let \( H \) be a point on \( DC \)
 such that \( EH \perp DC \).
 
-\begin{verbatim}
-A          E    B
-+---------------+ 
-|.        /.    |  
-| .      / .    |  
-|  .    /  .    | a
-| p .  / b .    |  
-|    ./    .    |  
-+---------------+
-D     F    H    C
-      <--- p --->
-<------ b ------>
-\end{verbatim}
+\input{fig/001.fig.tex}
 
 Let us define some of the line segments with single letter variables:
 \begin{align*}
@@ -57,20 +46,6 @@ We compute \( DF \) as
 \label{df}
 DF = b - p.
 \end{equation}
-
-\begin{verbatim}
-A          E    B
-+---------------+ 
-|.        /.    |  
-| .      / .    |  
-|  .    /  .    | a
-| p .  / b .    |  
-|    ./    .    |  
-+---------------+
-D     F    H    C
-      <--- p --->
-<------ b ------>
-\end{verbatim}
 
 By applying Pythagorean theorem to the right-angled \( \triangle ADF \),
 we get
