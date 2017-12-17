@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage[a4paper]{geometry}
+\usepackage{parskip}
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref}
+\usepackage{amsmath}
+\urlstyle{same}
+\title{Triangular Area}
+\date{}
+\begin{document}
+\maketitle
+
+\section*{Problem}
+In \( \triangle ABC \), produce a line from \( B \) to \( AC \), meeting
+at \( D \), and from \( C \) to \( AB \), meeting at \( E \).  Let \( BD
+\) and \( CE \) meet at \( X \). Let \( \triangle BXE \) have area \( a
+\), \( \triangle BXC \) have area \( b \), and \( \triangle CXD \) have
+area \( c \).  Find the area of quadrilateral \( AEXD \) in terms of \(
+a \), \( b \), and \( c \).
+
+% TODO: Include diagram
+
+Source: \url{http://www.qbyte.org/puzzles/puzzle01.html#p2}
+
+\section*{Solution}
+Draw a line segment \( AX \). Let the area of \( \triangle AXE \) be \(
+x \) and the area of \( \triangle AXD \) be \( y \). We need to find \(
+x + y \) in terms of \( a \), \( b \), and \( c \).
+
+Extend the line segments \( CE \) and \( BD \) such that \( BH \) meets \( CE
+\) and \( CG \) meets \( BD \) at right angles.
+
+We know that the triangles with collinear bases have a common height and
+also their areas are in the ratio of their respective bases that are
+collinear.
+
+From \( \triangle BXE \) and \( \triangle BXC \) we have
+\begin{align*}
+\frac{EX}{CX} = \frac{a}{b}.
+\end{align*}
+
+From \( \triangle BXC \) and \( \triangle CXD \) we have
+\begin{align*}
+\frac{BX}{DX} = \frac{b}{c}.
+\end{align*}
+
+From \( \triangle AXB \) and \( \triangle AXD \) we have
+\begin{align}
+\frac{BX}{DX} = \frac{a + x}{y}
+& \implies \frac{b}{c} = \frac{a + x}{y} \nonumber \\
+& \iff              by = cx + ac. \label{eq1}
+\end{align}
+
+From \( \triangle AXE \) and \( \triangle AXC \) we have
+\begin{align}
+\frac{EX}{CX} = \frac{x}{y + c}
+& \implies \frac{a}{b} = \frac{x}{y + c} \nonumber \\
+& \iff              bx = ay + ac. \label{eq2}
+\end{align}
+
+Substituting \eqref{eq2} in \eqref{eq1} we get
+\begin{align}
+by = c \left( \frac{ay + ac}{b} \right) + ac
+& \iff b^2y - acy = ac^2 + abc \nonumber \\
+& \iff y = ac \left( \frac{b + c}{b^2 - ac} \right). \label{eq3}
+\end{align}
+
+Substituting \eqref{eq1} in \eqref{eq2} we get
+\begin{align}
+bx = a \left( \frac{cx + ac}{b} \right) + ac
+& \iff b^2x - acx = a^2c + abc \nonumber \\
+& \iff x = ac \left( \frac{a + b}{b^2 - ac} \right). \label{eq4}
+\end{align}
+
+Adding \eqref{eq3} and \eqref{eq4} we get the area of quadrilateral \(
+AEXD \) as
+\[
+x + y = ac \left( \frac{b + c}{b^2 - ac} \right) +
+        ac \left( \frac{a + b}{b^2 - ac} \right)
+      = ac \left( \frac{a + 2b + c}{b^2 - ac} \right).
+\]
+\end{document}
