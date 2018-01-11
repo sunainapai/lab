@@ -12,6 +12,7 @@ is replaced with the following instead,
 we do not get the expected result.
 
 If the input is:
+
     3
     (a+(b*c))
     ((a+b)*(z+x))
@@ -101,3 +102,42 @@ following.
 
                 Example: 7 1 3 3 2 2 -> 7 1 4 4 1 7
                            i     j
+
+
+## A006Arith
+To split a string based on operators `+`, `-` and `*` if we use,
+
+    result = operation.split("[+-*]");
+
+We get the following error.
+
+    Exception in thread "main" java.util.regex.PatternSyntaxException: Illegal character range near index 3 [+-*]
+
+Use this instead.
+
+    result = operation.split("[-+*]");
+
+    operation: 12345+67890
+    result: [12345, 67890]
+
+To retain the operator in the resulting array after the split operation
+use,
+
+    result = operation.split("(?<=[-+*])|(?=[-+*])");
+
+    operation: 12345+67890
+    result: [12345, +, 67890]
+
+Note: https://stackoverflow.com/a/13525053
+
+    String myString= "a+b-c*d/e";
+    String[] result = myString.split("(?<=[-+*/])|(?=[-+*/])");
+    System.out.println(Arrays.toString(result));
+    System.out.println(Arrays.toString(myString.split("(?<=[-+*/])")));
+    System.out.println(Arrays.toString(myString.split("(?=[-+*/])")));
+
+    [a, +, b, -, c, *, d, /, e]
+    [a+, b-, c*, d/, e]
+    [a, +b, -c, *d, /e]
+
+    (?<=...) means look-behind assertion, and (?=...) means look-ahead assertion.
