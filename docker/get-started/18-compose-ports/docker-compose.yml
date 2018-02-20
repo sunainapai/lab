@@ -1,0 +1,35 @@
+version: "3"
+services:
+    pyhttp-svc:
+        image: pyhttp
+        ports:
+            - 8080:8000
+
+# docker stack ls
+# NAME                SERVICES
+# pyhttp-stack        1
+
+# docker service ls
+# ID                  NAME                      MODE                REPLICAS            IMAGE               PORTS
+# nb42aicqjjo2        pyhttp-stack_pyhttp-svc   replicated          1/1                 pyhttp:latest       *:8080->8000/tcp
+
+# docker ps
+# CONTAINER ID        IMAGE               COMMAND                  CREATED                  STATUS              PORTS               NAMES
+# e31f0bbeed1e        pyhttp:latest       "python3 -m http.ser…"   Less than a second ago   Up 3 seconds                            pyhttp-stack_pyhttp-svc.1.o3ljqa7ftta04k3ced254opiy
+
+# curl http://localhost:8080/etc/hostname
+# e31f0bbeed1e
+
+# docker exec -it e31f0bbeed1e netstat -t
+# Active Internet connections (w/o servers)
+# Proto Recv-Q Send-Q Local Address           Foreign Address         State       
+# tcp        0      0 10.255.0.22:8000        10.255.0.2:43120        TIME_WAIT
+
+# The final output shows that the container has received a connection
+# from 10.255.0.2 when we visited the Python HTTP server.
+# It appears to be an IP address managed by Docker. The container can
+# ping this IP address successfully.
+
+# Note that there are no port mappings on the container. The port
+# mappings are only on the service. Compare this with the example in
+# 12-python-http.sh where the port mapping is on the container.
