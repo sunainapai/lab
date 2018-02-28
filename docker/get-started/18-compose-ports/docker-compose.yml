@@ -5,27 +5,37 @@ services:
         ports:
             - 8080:8000
 
+
 # docker stack ls
 # NAME                SERVICES
 # pyhttp-stack        1
 
 # docker service ls
 # ID                  NAME                      MODE                REPLICAS            IMAGE               PORTS
-# nb42aicqjjo2        pyhttp-stack_pyhttp-svc   replicated          1/1                 pyhttp:latest       *:8080->8000/tcp
+# kyq30u2mk553        pyhttp-stack_pyhttp-svc   replicated          1/1                 pyhttp:latest       *:8080->8000/tcp
 
 # docker ps
-# CONTAINER ID        IMAGE               COMMAND                  CREATED                  STATUS              PORTS               NAMES
-# e31f0bbeed1e        pyhttp:latest       "python3 -m http.ser…"   Less than a second ago   Up 3 seconds                            pyhttp-stack_pyhttp-svc.1.o3ljqa7ftta04k3ced254opiy
+# CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+# 83b8501f796a        pyhttp:latest       "python3 -m http.ser…"   5 seconds ago       Up 3 seconds                            pyhttp-stack_pyhttp-svc.1.f3fzo27ugce8ngu1t43100tlz
 
 # curl http://localhost:8080/etc/hostname
-# e31f0bbeed1e
+# 83b8501f796a
 
-# docker exec -it e31f0bbeed1e netstat -t
+# docker exec -it 83b8501f796a netstat -t
 # Active Internet connections (w/o servers)
-# Proto Recv-Q Send-Q Local Address           Foreign Address         State       
-# tcp        0      0 10.255.0.22:8000        10.255.0.2:43120        TIME_WAIT
+# Proto Recv-Q Send-Q Local Address           Foreign Address         State
+# tcp        0      0 10.255.0.58:8000        10.255.0.2:43482        TIME_WAIT
 
-# The final output shows that the container has received a connection
+# docker exec -it 83b8501f796a netstat -l
+# Active Internet connections (only servers)
+# Proto Recv-Q Send-Q Local Address           Foreign Address         State
+# tcp        0      0 127.0.0.11:32859        0.0.0.0:*               LISTEN
+# tcp        0      0 0.0.0.0:8000            0.0.0.0:*               LISTEN
+# udp        0      0 127.0.0.11:40310        0.0.0.0:*
+# Active UNIX domain sockets (only servers)
+# Proto RefCnt Flags       Type       State         I-Node Path
+
+# The netstat -t output shows that the container has received a connection
 # from 10.255.0.2 when we visited the Python HTTP server.
 # It appears to be an IP address managed by Docker. The container can
 # ping this IP address successfully.
@@ -33,3 +43,9 @@ services:
 # Note that there are no port mappings on the container. The port
 # mappings are only on the service. Compare this with the example in
 # 12-python-http.sh where the port mapping is on the container.
+
+# Running ifconfig in the container shows three interfaces apart from lo:
+#
+#   - eth0: 10.255.0.58
+#   - eth1: 172.18.0.3
+#   - eth2: 10.0.0.4

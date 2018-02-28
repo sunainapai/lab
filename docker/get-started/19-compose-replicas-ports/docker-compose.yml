@@ -7,59 +7,97 @@ services:
         ports:
             - 8080:8000
 
+
+# docker stack ls
+# NAME                SERVICES
+# pyhttp-stack        1
+
 # docker service ls
 # ID                  NAME                      MODE                REPLICAS            IMAGE               PORTS
-# xz96q6hv11sh        pyhttp-stack_pyhttp-svc   replicated          3/3                 pyhttp:latest       *:8080->8000/tcp
+# ckvx93tgmn7d        pyhttp-stack_pyhttp-svc   replicated          3/3                 pyhttp:latest       *:8080->8000/tcp
 
 # docker ps
 # CONTAINER ID        IMAGE               COMMAND                  CREATED                  STATUS              PORTS               NAMES
-# 4efa2afa809a        pyhttp:latest       "python3 -m http.ser…"   Less than a second ago   Up 1 second                             pyhttp-stack_pyhttp-svc.1.0dxv8bmeyw8enzz8v6339t3z1
-# 0b255c9fbae1        pyhttp:latest       "python3 -m http.ser…"   Less than a second ago   Up 1 second                             pyhttp-stack_pyhttp-svc.3.y8j6tkj0c6sz44su9rzrk7ucr
-# c64deb5f194d        pyhttp:latest       "python3 -m http.ser…"   Less than a second ago   Up 3 seconds                            pyhttp-stack_pyhttp-svc.2.ulvy8ku7ap7dibgmwf39v7c0p
-
-
-# curl http://localhost:8080/etc/hostname
-# 0b255c9fbae1
+# 0ad85610d2df        pyhttp:latest       "python3 -m http.ser…"   Less than a second ago   Up 2 seconds                            pyhttp-stack_pyhttp-svc.1.wbuqe60jk3cf0ujbsti8romgn
+# a5c01538c979        pyhttp:latest       "python3 -m http.ser…"   Less than a second ago   Up 2 seconds                            pyhttp-stack_pyhttp-svc.3.er6cevio0vclulp0hmrjia0nq
+# ec12ca4bc963        pyhttp:latest       "python3 -m http.ser…"   Less than a second ago   Up 2 seconds                            pyhttp-stack_pyhttp-svc.2.jblxcmewn5g7uxef30peie4jw
 
 # curl http://localhost:8080/etc/hostname
-# 4efa2afa809a
+# 0ad85610d2df
 
 # curl http://localhost:8080/etc/hostname
-# c64deb5f194d
+# a5c01538c979
 
 # curl http://localhost:8080/etc/hostname
-# 0b255c9fbae1
+# ec12ca4bc963
 
 # curl http://localhost:8080/etc/hostname
-# 4efa2afa809a
+# 0ad85610d2df
 
 # curl http://localhost:8080/etc/hostname
-# c64deb5f194d
+# a5c01538c979
+
+# curl http://localhost:8080/etc/hostname
+# ec12ca4bc963
 
 # Note round-robin load balancing in the output above
 
-
-# docker exec -it 0b255c9fbae1 netstat -t
+# docker exec -it 0ad85610d2df netstat -t
 # Active Internet connections (w/o servers)
-# Proto Recv-Q Send-Q Local Address           Foreign Address         State       
-# tcp        0      0 10.255.0.29:8000        10.255.0.2:43214        TIME_WAIT   
-# tcp        0      0 10.255.0.29:8000        10.255.0.2:43208        TIME_WAIT   
-# tcp        0      0 10.255.0.29:8000        10.255.0.2:43220        TIME_WAIT   
+# Proto Recv-Q Send-Q Local Address           Foreign Address         State
+# tcp        0      0 10.255.0.74:8000        10.255.0.2:43650        TIME_WAIT
+# tcp        0      0 10.255.0.74:8000        10.255.0.2:43656        TIME_WAIT
 
-# docker exec -it 4efa2afa809a netstat -t
+# docker exec -it a5c01538c979 netstat -t
 # Active Internet connections (w/o servers)
-# Proto Recv-Q Send-Q Local Address           Foreign Address         State       
-# tcp        0      0 10.255.0.30:8000        10.255.0.2:43216        TIME_WAIT   
-# tcp        0      0 10.255.0.30:8000        10.255.0.2:43222        TIME_WAIT   
-# tcp        0      0 10.255.0.30:8000        10.255.0.2:43210        TIME_WAIT   
+# Proto Recv-Q Send-Q Local Address           Foreign Address         State
+# tcp        0      0 10.255.0.76:8000        10.255.0.2:43652        TIME_WAIT
+# tcp        0      0 10.255.0.76:8000        10.255.0.2:43664        TIME_WAIT
+# tcp        0      0 10.255.0.76:8000        10.255.0.2:43658        TIME_WAIT
 
-# docker exec -it c64deb5f194d netstat -t
+# docker exec -it ec12ca4bc963 netstat -t
 # Active Internet connections (w/o servers)
-# Proto Recv-Q Send-Q Local Address           Foreign Address         State       
-# tcp        0      0 10.255.0.28:8000        10.255.0.2:43218        TIME_WAIT   
-# tcp        0      0 10.255.0.28:8000        10.255.0.2:43224        TIME_WAIT   
-# tcp        0      0 10.255.0.28:8000        10.255.0.2:43212        TIME_WAIT
+# Proto Recv-Q Send-Q Local Address           Foreign Address         State
+# tcp        0      0 10.255.0.75:8000        10.255.0.2:43660        TIME_WAIT
+# tcp        0      0 10.255.0.75:8000        10.255.0.2:43654        TIME_WAIT
+# tcp        0      0 10.255.0.75:8000        10.255.0.2:43666        TIME_WAIT
 
-# All replica containers receive connection from a single IP address
+# docker exec -it 0ad85610d2df netstat -l
+# Active Internet connections (only servers)
+# Proto Recv-Q Send-Q Local Address           Foreign Address         State
+# tcp        0      0 127.0.0.11:40607        0.0.0.0:*               LISTEN
+# tcp        0      0 0.0.0.0:8000            0.0.0.0:*               LISTEN
+# udp        0      0 127.0.0.11:38040        0.0.0.0:*
+# Active UNIX domain sockets (only servers)
+# Proto RefCnt Flags       Type       State         I-Node Path
+
+# docker exec -it a5c01538c979 netstat -l
+# Active Internet connections (only servers)
+# Proto Recv-Q Send-Q Local Address           Foreign Address         State
+# tcp        0      0 127.0.0.11:37461        0.0.0.0:*               LISTEN
+# tcp        0      0 0.0.0.0:8000            0.0.0.0:*               LISTEN
+# udp        0      0 127.0.0.11:42570        0.0.0.0:*
+# Active UNIX domain sockets (only servers)
+# Proto RefCnt Flags       Type       State         I-Node Path
+
+# docker exec -it ec12ca4bc963 netstat -l
+# Active Internet connections (only servers)
+# Proto Recv-Q Send-Q Local Address           Foreign Address         State
+# tcp        0      0 127.0.0.11:39451        0.0.0.0:*               LISTEN
+# tcp        0      0 0.0.0.0:8000            0.0.0.0:*               LISTEN
+# udp        0      0 127.0.0.11:44938        0.0.0.0:*
+# Active UNIX domain sockets (only servers)
+# Proto RefCnt Flags       Type       State         I-Node Path
+
 # (10.255.0.2 in this case) when we visit the Python HTTP server running
 # on the service.
+
+# If we run ifconfig on one of the containers we see the following
+# interfaces apart from eth0:
+#
+#   - eth0: 10.255.0.74
+#   - eth1: 172.18.0.5
+#   - eth2: 10.0.0.4
+#
+# Of these three, only the 10.* IPs were pingable from other replica
+# containers.

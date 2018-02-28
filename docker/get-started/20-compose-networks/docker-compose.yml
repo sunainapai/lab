@@ -1,0 +1,36 @@
+version: "3"
+services:
+    pyhttp-svc:
+        image: pyhttp
+        deploy:
+            replicas: 3
+        ports:
+            - 8080:8000
+        networks:
+            - pynet
+networks:
+    pynet:
+
+# docker stack deploy -c 20-compose-networks/docker-compose.yml pyhttp-stack
+# Creating network pyhttp-stack_pynet
+# Creating service pyhttp-stack_pyhttp-svc
+
+# docker exec -it d27c0478df3e sh -c 'ifconfig | grep -E "encap:|addr:"'
+# eth0      Link encap:Ethernet  HWaddr 02:42:0A:FF:00:63
+#           inet addr:10.255.0.99  Bcast:10.255.255.255  Mask:255.255.0.0
+# eth1      Link encap:Ethernet  HWaddr 02:42:AC:12:00:04
+#           inet addr:172.18.0.4  Bcast:172.18.255.255  Mask:255.255.0.0
+# eth2      Link encap:Ethernet  HWaddr 02:42:0A:00:00:05
+#           inet addr:10.0.0.5  Bcast:10.0.0.255  Mask:255.255.255.0
+# lo        Link encap:Local Loopback
+#           inet addr:127.0.0.1  Mask:255.0.0.0
+
+# Of these IP addresses, the 10.*.*.* addresses are pingable from other
+# replica containers. This behaviour is same as that of the previous
+# example in 19-compose-replicas-ports which uses default networking.
+
+# If we add new networks in the top-level "networks:" section such as
+# "foonet:" and "barnet:", nothing changes. We can see a change in
+# behaviour only if we refer to these new networks in the service's
+# "networks:" section. This is demonstrated in the next example:
+# 21-compose-multiple-networks.

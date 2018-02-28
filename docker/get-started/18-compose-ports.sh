@@ -12,6 +12,7 @@ docker ps
 curl http://localhost:8080/etc/hostname
 
 docker exec -it "$(docker ps -q | head -n 1)" netstat -t
+docker exec -it "$(docker ps -q | head -n 1)" netstat -l
 
 set +x
 echo

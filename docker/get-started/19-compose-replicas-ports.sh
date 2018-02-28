@@ -20,6 +20,10 @@ docker exec -it "$(curl -s http://localhost:8080/etc/hostname)" netstat -t
 docker exec -it "$(curl -s http://localhost:8080/etc/hostname)" netstat -t
 docker exec -it "$(curl -s http://localhost:8080/etc/hostname)" netstat -t
 
+docker exec -it "$(curl -s http://localhost:8080/etc/hostname)" netstat -l
+docker exec -it "$(curl -s http://localhost:8080/etc/hostname)" netstat -l
+docker exec -it "$(curl -s http://localhost:8080/etc/hostname)" netstat -l
+
 set +x
 echo
 echo Press ENTER to remove the stack.

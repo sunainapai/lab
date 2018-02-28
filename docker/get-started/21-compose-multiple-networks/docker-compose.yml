@@ -1,0 +1,44 @@
+version: "3"
+services:
+    pyhttp-svc:
+        image: pyhttp
+        deploy:
+            replicas: 3
+        ports:
+            - 8080:8000
+        networks:
+            - pynet
+            - foonet
+            - barnet
+networks:
+    pynet:
+    foonet:
+    barnet:
+
+# docker stack deploy -c 21-compose-multiple-networks/docker-compose.yml pyhttp-stack
+# Creating network pyhttp-stack_foonet
+# Creating network pyhttp-stack_barnet
+# Creating network pyhttp-stack_pynet
+# Creating service pyhttp-stack_pyhttp-svc
+
+# docker exec -it 1fed274cc519 sh -c 'ifconfig | grep -E "encap:|addr:"'
+# eth0      Link encap:Ethernet  HWaddr 02:42:0A:FF:00:6A
+#           inet addr:10.255.0.106  Bcast:10.255.255.255  Mask:255.255.0.0
+# eth1      Link encap:Ethernet  HWaddr 02:42:0A:00:01:04
+#           inet addr:10.0.1.4  Bcast:10.0.1.255  Mask:255.255.255.0
+# eth2      Link encap:Ethernet  HWaddr 02:42:0A:00:02:04
+#           inet addr:10.0.2.4  Bcast:10.0.2.255  Mask:255.255.255.0
+# eth3      Link encap:Ethernet  HWaddr 02:42:AC:12:00:05
+#           inet addr:172.18.0.5  Bcast:172.18.255.255  Mask:255.255.0.0
+# eth4      Link encap:Ethernet  HWaddr 02:42:0A:00:00:04
+#           inet addr:10.0.0.4  Bcast:10.0.0.255  Mask:255.255.255.0
+# lo        Link encap:Local Loopback
+#           inet addr:127.0.0.1  Mask:255.0.0.0
+
+# We observe the following points:
+#
+#   - We see that there is a 10.255.x.x address that serves our requests.
+#   - For each network, there is a 10.0.x.x address created.
+#   - All 10.x.x.x addresses can be pinged from another replica container.
+#   - There is a 172.18.0.x address that cannot be pinged from another
+#     replica container.

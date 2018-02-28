@@ -27,23 +27,34 @@ docker ps
 
 curl http://localhost:8080/etc/hostname
 docker exec -it "$(docker ps -q | head -n 1)" netstat -nt
+docker exec -it "$(docker ps -q | head -n 1)" netstat -l
 
 # docker ps
-# CONTAINER ID        IMAGE               COMMAND                  CREATED                  STATUS              PORTS                    NAMES
-# 419df004def1        python-http         "/bin/sh -c 'python3…"   Less than a second ago   Up 10 seconds       0.0.0.0:8080->8000/tcp   cocky_mccarthy
+# CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+# 34078b03bdf2        python-http         "/bin/sh -c 'python3…"   10 seconds ago      Up 10 seconds       0.0.0.0:8080->8000/tcp   determined_benz
 
 # curl http://localhost:8080/etc/hostname
-# 419df004def1
+# 34078b03bdf2
 
-# docker exec -it 419df004def1 netstat -nt
+# docker exec -it 34078b03bdf2 netstat -nt
 # Active Internet connections (w/o servers)
-# Proto Recv-Q Send-Q Local Address           Foreign Address         State       
-# tcp        0      0 172.17.0.2:8000         172.17.0.1:55602        TIME_WAIT
+# Proto Recv-Q Send-Q Local Address           Foreign Address         State
+# tcp        0      0 172.17.0.2:8000         172.17.0.1:55958        TIME_WAIT
+
+# docker exec -it 34078b03bdf2 netstat -l
+# Active Internet connections (only servers)
+# Proto Recv-Q Send-Q Local Address           Foreign Address         State
+# tcp        0      0 0.0.0.0:8000            0.0.0.0:*               LISTEN
+# Active UNIX domain sockets (only servers)
+# Proto RefCnt Flags       Type       State         I-Node Path
 
 # The output shows that our container (172.17.0.2) is receiving a
 # connection from 172.17.0.1 when we try to connect to the Python HTTP
 # server running on it. The 172.17.0.1 IP address appears to be managed
 # by Docker. The container can successfully ping 172.17.0.1.
+
+# If we run ifconfig in a container, we see only one interface "eth0"
+# apart from "lo" where "eth0" has an IP address of 172.17.0.2.
 
 set +x
 echo
