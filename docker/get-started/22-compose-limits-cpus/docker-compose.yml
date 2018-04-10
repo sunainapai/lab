@@ -1,0 +1,57 @@
+version: "3"
+services:
+    pyloop-svc:
+        image: pyloop
+        deploy:
+            replicas: 3
+            resources:
+                limits:
+                    cpus: "0.42"
+
+# Set cpus < p / r to see the effect of this resource limit, where p is
+# the number of available processors (cores) available on the system and
+# r is the number of replicas configured in docker-compose.yml file.
+#
+# When there is no cpu limit set, or if it is set to a value >= p / r,
+# then each replica would consume approximately p / r amount of CPU
+# because the p processors available would be divided roughly equally
+# among the r replicas.
+#
+# With cpus < p / r, each replica would be constrained to use less than
+# the maximum possible p / r CPU.
+
+# For example, with 2 processors, 3 replicas, and no CPU limit, each
+# replica may use about 66% CPU on an average. Here are 3 readings of
+# CPU consumption in this scenario:
+
+#  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# 2452 root      20   0    7632   4892   2224 R  81.0  0.1   0:09.80 python3
+# 2463 root      20   0    7632   4900   2220 R  62.0  0.1   0:10.92 python3
+# 2462 root      20   0    7632   4904   2228 R  55.0  0.1   0:10.63 python3
+#  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# 2463 root      20   0    7632   4900   2220 R  74.3  0.1   0:11.67 python3
+# 2462 root      20   0    7632   4904   2228 R  67.3  0.1   0:11.31 python3
+# 2452 root      20   0    7632   4892   2224 R  56.4  0.1   0:10.37 python3
+#  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# 2463 root      20   0    7632   4900   2220 R  74.3  0.1   0:12.42 python3
+# 2462 root      20   0    7632   4904   2228 R  66.3  0.1   0:11.98 python3
+# 2452 root      20   0    7632   4892   2224 R  56.4  0.1   0:10.94 python3
+
+# In the output above, we see that the three replicas are sharing about
+# 198% CPU or 1.98 CPUs between them.
+
+# With 2 processors, 3 replicas, and a CPU limit of 0.42, each replica
+# can use only 42% CPU on an average. Here are 3 such readings:
+#
+#  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# 3015 root      20   0    7632   4904   2228 R  42.6  0.1   0:06.80 python3
+# 3020 root      20   0    7632   4956   2284 R  42.6  0.1   0:06.79 python3
+# 3050 root      20   0    7632   4896   2224 R  40.6  0.1   0:06.37 python3
+#  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# 3020 root      20   0    7632   4956   2284 R  44.0  0.1   0:07.23 python3
+# 3015 root      20   0    7632   4904   2228 R  42.0  0.1   0:07.22 python3
+# 3050 root      20   0    7632   4896   2224 R  42.0  0.1   0:06.79 python3
+#  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# 3050 root      20   0    7632   4896   2224 R  43.6  0.1   0:07.23 python3
+# 3015 root      20   0    7632   4904   2228 R  41.6  0.1   0:07.64 python3
+# 3020 root      20   0    7632   4956   2284 R  40.6  0.1   0:07.64 python3

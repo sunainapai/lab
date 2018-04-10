@@ -1,0 +1,122 @@
+version: "3"
+services:
+    pymem-svc:
+        image: pymem
+        deploy:
+            replicas: 3
+            resources:
+                limits:
+                    memory: 600M
+
+
+# No Memory Limit
+# ===============
+# If no memory limit is set, then each replica would attempt to consume
+# all available memory and eventually crash when out of memory. Here is
+# an example output when no memory limit is set.
+
+# Just before the replicas start, there is 3.10 GB of free memory available.
+#
+# KiB Mem :  4050916 total,  3254224 free,   482832 used,   313860 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# KiB Mem :  4050916 total,  3254224 free,   482832 used,   313860 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# 19419 root      20   0    7632   4992   2320 S   3.0  0.1   0:00.03 python3
+# KiB Mem :  4050916 total,  3254224 free,   482832 used,   313860 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# 19370 root      20   0    7632   4920   2248 S   4.0  0.1   0:00.04 python3
+# 19395 root      20   0    7632   4920   2248 S   4.0  0.1   0:00.04 python3
+# 19419 root      20   0    7632   4992   2320 S   0.0  0.1   0:00.03 python3
+
+# Just before the replicas go down, the three replicas have consumed
+# 3.22 GB of resident memory and only 0.10 GB of free memory remains.
+#
+# KiB Mem :  4050916 total,   105468 free,  3694796 used,   250652 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# 19419 root      20   0 1290012 1.220g    936 R  81.2 31.6   0:13.46 python3
+# 19370 root      20   0  917628 910760    320 R  68.3 22.5   0:11.54 python3
+# 19395 root      20   0 1029416 997.6m    320 R  44.6 25.2   0:10.77 python3
+# KiB Mem :  4050916 total,   105468 free,  3694796 used,   250652 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# 19419 root      20   0 1381468 1.290g   1168 R  76.2 33.4   0:14.23 python3
+# 19395 root      20   0 1101800 1.031g   1096 R  62.4 26.7   0:11.40 python3
+# 19370 root      20   0  966952 944484   1128 R  41.6 23.3   0:11.96 python3
+# KiB Mem :  4050916 total,   105468 free,  3694796 used,   250652 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# 19370 root      20   0  373288 353280   1204 R  64.4  8.7   0:12.61 python3
+# 19395 root      20   0  470248 451740   1212 R  62.4 11.2   0:12.03 python3
+# 19419 root      20   0 1391708 1.302g     28 R  47.5 33.7   0:14.71 python3
+# KiB Mem :  4050916 total,  3460844 free,   477908 used,   112164 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# KiB Mem :  4050916 total,  3460844 free,   477908 used,   112164 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+
+# Finally, the replicas come up again.
+#
+# KiB Mem :  4050916 total,  3422732 free,   481092 used,   147092 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# KiB Mem :  4050916 total,  3422732 free,   481092 used,   147092 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# 19894 root      20   0    7632   5104   2204 S   5.0  0.1   0:00.05 python3
+# KiB Mem :  4050916 total,  3422732 free,   481092 used,   147092 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# 19835 root      20   0    7632   4860   2188 S   3.0  0.1   0:00.03 python3
+# 19894 root      20   0    7632   5104   2204 S   0.0  0.1   0:00.05 python3
+# KiB Mem :  4050916 total,  3404976 free,   490592 used,   155348 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# 19869 root      20   0    7632   4956   2280 S   3.0  0.1   0:00.03 python3
+# 19835 root      20   0    7632   4860   2188 S   0.0  0.1   0:00.03 python3
+# 19894 root      20   0    7632   5104   2204 S   0.0  0.1   0:00.05 python3
+
+
+# Memory Limit
+# ============
+# Just before the replicas start, there 3.21 GB of free memory.
+# 
+# KiB Mem :  4050916 total,  3364744 free,   464828 used,   221344 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# KiB Mem :  4050916 total,  3364744 free,   464828 used,   221344 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# 25460 root      20   0    7632   4948   2276 S   3.0  0.1   0:00.03 python3
+# KiB Mem :  4050916 total,  3364744 free,   464828 used,   221344 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# 25603 root      20   0    7632   4916   2244 S   4.0  0.1   0:00.04 python3
+# 25460 root      20   0    7632   4948   2276 S   0.0  0.1   0:00.03 python3
+# KiB Mem :  4050916 total,  3348992 free,   479288 used,   222636 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# 25471 root      20   0    7632   4900   2220 S   4.0  0.1   0:00.04 python3
+# 25460 root      20   0    7632   4948   2276 S   0.0  0.1   0:00.03 python3
+# 25603 root      20   0    7632   4916   2244 S   0.0  0.1   0:00.04 python3
+
+# Just before the replicas go down, the replicas have consumed 1.50 GB of
+# resident memory and there is 1.71 GB of free memory.
+#
+# KiB Mem :  4050916 total,  1786640 free,  2041360 used,   222916 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# 25460 root      20   0  489420 479576   2280 R  74.3 11.8   0:07.87 python3
+# 25603 root      20   0  561408 553552   2248 R  66.3 13.7   0:07.46 python3
+# 25471 root      20   0  552960 543320   2288 R  54.5 13.4   0:07.09 python3
+# KiB Mem :  4050916 total,  1786640 free,  2041360 used,   222916 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# 25471 root      20   0  624216 614460   2288 R  76.2 15.2   0:07.86 python3
+# 25460 root      20   0  516300 513332   2280 R  46.5 12.7   0:08.34 python3
+# KiB Mem :  4050916 total,  1786640 free,  2041360 used,   222916 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# 25460 root      20   0  579328 575916   2280 R  90.0 14.2   0:09.24 python3
+# KiB Mem :  4050916 total,  3360420 free,   467728 used,   222768 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# KiB Mem :  4050916 total,  3360420 free,   467728 used,   222768 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+
+# Finally the replicas come up again.
+# 
+# KiB Mem :  4050916 total,  3360976 free,   467148 used,   222792 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# KiB Mem :  4050916 total,  3340692 free,   486736 used,   223488 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# 26122 root      20   0    7632   4964   2292 S   4.0  0.1   0:00.04 python3
+# KiB Mem :  4050916 total,  3340692 free,   486736 used,   223488 buff/cache
+#   PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+# 26095 root      20   0    7632   4916   2244 S   4.0  0.1   0:00.04 python3
+# 26297 root      20   0    7632   4996   2324 S   4.0  0.1   0:00.04 python3
+# 26122 root      20   0    7632   4964   2292 S   0.0  0.1   0:00.04 python3
