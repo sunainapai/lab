@@ -6,3 +6,6 @@
 *.log
 *.out
 *.pdf
+
+# Ignore Lisp generated files.
+*.fasl
