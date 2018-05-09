@@ -1,11 +1,8 @@
-all: 001 002
+all: 001 002 003
 
-001:
-	pdflatex 001.tex
-	pdflatex 001.tex
+001 002 003:
+	pdflatex $@.tex
+	pdflatex $@.tex
 
-002:
-	pdflatex 002.tex
-	pdflatex 002.tex
 clean:
 	rm *.aux *.out *.log
