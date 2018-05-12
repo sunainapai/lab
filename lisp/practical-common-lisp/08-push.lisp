@@ -1,0 +1,5 @@
+(defvar *a* nil)
+(push 10 *a*)
+(push "foo" *a*)
+(push (list 1 2 3) *a*)
+(format t "~a~%" *a*)
