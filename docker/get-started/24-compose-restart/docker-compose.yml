@@ -1,0 +1,21 @@
+version: "3"
+services:
+    pyexit-svc:
+        image: pyexit
+        deploy:
+            restart_policy:
+                condition: on-failure
+
+# Change the exit code in pyexit.py and restart_policy condition in
+# docker-compose.yml and observe the results tabulated below.
+
+#  condition   exit code  restarted?
+#  ----------  ---------  ----------
+#  none        0          no
+#  none        1          no
+#  on-failure  0          no
+#  on-failure  1          yes
+#  any         0          yes
+#  any         1          yes
+#  (missing)   0          yes
+#  (missing)   1          yes
