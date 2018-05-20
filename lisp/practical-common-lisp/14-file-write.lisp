@@ -6,5 +6,4 @@
                  :if-exists :supersede)
   (with-standard-io-syntax
     (print *db* out)
-    (print "hello" out)
-    ))
+    (print "hello" out)))
