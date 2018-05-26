@@ -100,8 +100,8 @@ def main():
     # Remove all None values from the list of (x, y) pairs.
     cxy = [xy for xy in cxy if xy]
 
-    # The problem is set such that we have only candidate product with
-    # factors x and y such that x + y = s.
+    # The problem is set such that we have only one candidate product
+    # with factors x and y such that x + y = s.
     assert len(cxy) == 1
     x, y = cxy[0]
     print('x:', x)
