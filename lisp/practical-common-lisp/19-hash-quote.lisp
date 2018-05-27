@@ -3,7 +3,8 @@
   (format t "f: x: ~a~%" x))
 
 (f 10)
-(f #'f)
+(f #'f) ; Pass function
+(f 'f)  ; Pass function name
 
 ; (f f) ; The variable F is unbound.
 
@@ -25,14 +26,16 @@
   ; use of x when it is called later by the invoker function.
   (defun h (y)
     (format t "g: x + y: ~a~%" (+ x y)))
+
   (invoker #'h 30) 
 
   ; Similarly, a lambda has access to variables of the outer scope.
   (invoker #'(lambda (z)
-               (format t "lambda: x + z: ~a~%" (+ x z))) 30)
-  )
+               (format t "lambda: x + z: ~a~%" (+ x z))) 30))
 
 (g 40)
 
-; The inner function h seems to be available globally.
-(h 100)
+(h 100) ; h is available in this scope.
+
+(fmakunbound 'g)
+(h 200) ; h is still available even if g isn't anymore.
