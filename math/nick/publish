@@ -1,0 +1,73 @@
+#!/bin/sh
+
+
+ORIGIN=https://github.com/tmug/nicks-puzzles.git
+REV=$(git rev-parse --short HEAD)
+
+
+output_files()
+{
+    rm -rf /tmp/nick
+    mkdir -p /tmp/nick/tex /tmp/nick/pdf
+    cp *.tex /tmp/nick/tex/
+    cp *.pdf /tmp/nick/pdf/
+}
+
+
+output_readme()
+{
+    echo "Solutions to Nick's Mathematical Puzzles"
+    echo "========================================"
+    echo "This repository contains solutions to problems from"
+    echo "[Nick's Mathematical Puzzles][NICKS]."
+    echo
+    echo "This repository has been automatically generated from"
+    echo "[sunainapai/lab/math/nick][NICKLAB] ([$REV][COMMIT])".
+    echo
+    echo "[NICKS]: http://www.qbyte.org/puzzles/"
+    echo "[NICKLAB]: https://github.com/sunainapai/lab/tree/master/math/nick"
+    echo "[COMMIT]: https://github.com/sunainapai/lab/commit/$REV"
+    echo
+    echo "Here is the list of the PDFs with the solutions:"
+    echo
+    
+    files=$(ls [0-9][0-9][0-9].tex | sort -n)
+
+    printf "%s\n" "$files" | while read -r f
+    do
+        num=${f%.tex}
+        title=$(grep '\\title{' "$f" | sed 's/.*\\title{\(.*\)}.*/\1/')
+        echo "  - Problem $num: $title [[pdf][PDF$num]] [[tex][TEX$num]]"
+    done
+    echo
+
+    printf "%s\n" "$files" | while read -r f
+    do
+        num=${f%.tex}
+        echo "[TEX$num]: tex/$num.tex"
+        echo "[PDF$num]: https://github.com/tmug/nicks-puzzles/raw/master/pdf/$num.pdf"
+    done
+}
+
+
+push_output()
+{
+    cd /tmp/nick
+    git init .
+    git add .
+    git commit -m "Generated from sunainapai/lab/math/nick - $REV"
+    git remote add origin "$ORIGIN"
+    git remote -v
+    git push -f origin master
+}
+
+
+main()
+{
+    set -e
+    output_files
+    output_readme > /tmp/nick/README.md
+    push_output
+}
+
+main
