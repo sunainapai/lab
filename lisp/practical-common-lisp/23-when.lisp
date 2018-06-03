@@ -1,0 +1,16 @@
+(when t (format t "a~%"))
+(when t (format t "p") (format t "q") (format t "r~%"))
+(when nil (format t "a~%"))
+(when nil (format t "p") (format t "q") (format t "r~%"))
+(format t "~%")
+
+(format t "when: ~a~%" (when t (format t "a~%")))
+(format t "when: ~a~%" (when t (format t "p") (format t "q") (format t "r~%")))
+(format t "when: ~a~%" (when nil (format t "a~%")))
+(format t "when: ~a~%" (when nil (format t "p") (format t "q") (format t "r~%")))
+(format t "~%")
+
+(format t "when: ~a~%" (when t (+ 1 1) (+ 2 2) (+ 3 3)))
+(format t "when: ~a~%" (when t (format t "a~%") (+ 2 2) (+ 3 3)))
+(format t "when: ~a~%" (when nil (+ 1 1) (+ 2 2) (+ 3 3)))
+(format t "when: ~a~%" (when nil (format t "a~%") (+ 2 2) (+ 3 3)))
