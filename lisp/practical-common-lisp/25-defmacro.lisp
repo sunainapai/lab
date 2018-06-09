@@ -8,7 +8,7 @@
 ;
 ; (fbackwards ("foo~%" t format))
 
-(format t "~a~%" (fbackwards '("foo~%" t format))) 
+(format t "~a~%" (fbackwards '("foo~%" t format)))
 
 (defmacro calc (a op b) (funcall op a b))
 (format t "~a~%" (calc 1 + 2))
