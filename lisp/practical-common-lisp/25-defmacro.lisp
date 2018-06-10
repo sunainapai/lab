@@ -10,5 +10,5 @@
 
 (format t "~a~%" (fbackwards '("foo~%" t format)))
 
-(defmacro calc (a op b) (funcall op a b))
-(format t "~a~%" (calc 1 + 2))
+(defmacro infix (a op b) (list op a b))
+(format t "~a~%" (infix 1 + 2))
