@@ -13,12 +13,15 @@
 (defvar foo1 "foo1")
 (format t "~a ~a ~a~%" foo1 Foo1 FOO1)
 
-(defvar \f\o\o "escaped foo")
-(format t "~a ~a~%" |foo| \f\o\o)
-(format t "~a~%" \f|\oo|)
+(defvar \f\o\o "escaped")
+(format t "~a ~a ~a~%" |foo| \f\o\o \f|\oo|)
+
+(defvar |bar| "bars")
+(format t "~a ~a ~a~%" |bar| \b\a\r \b|\ar|)
 
 ; The variable FOO is unbound.
-; (format t "~a~%" foo)
+; (format t "~a~%" foo) ; Undefined because "foo" is converted to "FOO".
+; (format t "~a~%" bar) ; Undefined because "bar" is converted to "BAR".
 
 ; invalid number of elements in "dot"
 ; (defvar . "dot")
