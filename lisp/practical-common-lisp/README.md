@@ -1,5 +1,15 @@
+Practical Common Lisp: Examples & Notes
+=======================================
+This directory contains examples and notes I wrote while reading
+[Practical Common Lisp](http://www.gigamonkeys.com/book/) by Peter
+Seibel.
+
+
 Set up SBCL + Slimv for Lisp Development Environment
 ----------------------------------------------------
+These are the steps I followed to install SBCL and Slimv on macOS High
+Sierra Version 10.13.5.
+
  1. Enter the following command to install Steel Bank Common Lisp:
 
         brew install sbcl
