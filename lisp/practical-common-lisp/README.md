@@ -118,3 +118,33 @@ Chapter URL: http://www.gigamonkeys.com/book/syntax-and-semantics.html
 > expanded until the code consists of nothing but function call forms
 > and special forms. This macroless code is then compiled into a FASL
 > file that the `LOAD` function knows how to load.
+
+### Summary of Chapter
+An s-expression is one of:
+
+  - Lists: Left parenthesis, whitespace-separated s-expressions
+    (atoms or nested lists), and right parenthesis.
+  - Atoms: Everything else, i.e., nonlist or empty list. Examples:
+    - Numbers. Examples:
+      - Integers, e.g., `1`, `2`, etc.
+      - Ratios, e.g., `1/2`, `3/7`, etc.
+      - Floating point, e.g., `1.0`, `1.0e0`, `1.0d0`, etc.
+    - Strings, e.g., `"foo"`, `"foo\\bar\"baz"`, etc.
+    - Names (represented by objects called symbols), e.g., `format`,
+      `hello-world`, `*db*`, etc.
+    - etc.
+
+A Lisp form is one of:
+
+  - Atom
+    - Numbers, strings, etc.: Evaluate to themselves.
+    - Symbols: Variables evaluate to their current values.
+      - `T`: evaluates to itself because value of symbol `T` is `T`.
+      - `NIL`: evaluates to itself because value of symbol `NIL` is `NIL`.
+      - `:a`: a keyword symbol evaluates to itself because the reader
+        interns such a name by defining a constant variable with the
+        name and with the symbol as its value.
+  - List that has a symbol as its first element.
+    - Function call forms (function calls)
+    - Special forms (special operators)
+    - Macro forms (macros)
