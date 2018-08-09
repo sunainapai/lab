@@ -12,6 +12,7 @@
 (defun g ()
   (+ 1 2)
   (return-from g (+ 3 4))
+  (format t "foo~%")
   (+ 5 6))
 
 (format t "~a~%" (g)) ; 7
