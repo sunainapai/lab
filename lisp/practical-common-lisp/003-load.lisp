@@ -1,1 +1,1 @@
-(load "02-defun.lisp")
+(load "002-defun.lisp")

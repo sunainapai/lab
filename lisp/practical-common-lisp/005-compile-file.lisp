@@ -1,3 +1,3 @@
-(compile-file "02-defun.lisp")
-(load "02-defun.fasl")
-(load (compile-file "02-defun.lisp"))
+(compile-file "002-defun.lisp")
+(load "002-defun.fasl")
+(load (compile-file "002-defun.lisp"))
