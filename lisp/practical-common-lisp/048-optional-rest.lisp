@@ -5,6 +5,13 @@
 (f 1 2 3) ; a: 1; b: 2; c: 3; d: NIL; e: NIL
 (f 1 2 3 4 5) ; a: 1; b: 2; c: 3; d: 4; e: (5)
 (f 1 2 3 4 5 6 7) ; a: 1; b: 2; c: 3; d: 4; e: (5 6 7)
+(format t "~%")
+
+(defun g (&rest e)
+  (format t "e: ~a~%" e))
+
+(g) ; e: NIL
+(g 1 2 3) ; e: (1 2 3)
 
 ; misplaced &OPTIONAL in lambda list: (A B &REST C &OPTIONAL D E)
 ; (defun g (a b &rest c &optional d e) ())
