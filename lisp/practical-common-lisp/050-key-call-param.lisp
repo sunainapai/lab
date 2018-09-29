@@ -3,6 +3,9 @@
 
 (f :a 10) ; a: 10; b: 10; c: 20
 
+; Keyword used by caller is different from the name of the actual
+; parameter. For example, caller calls with :box, but the actual
+; parameter is b.
 (defun g (&key a ((:box b) a)  ((:cat c) (+ a b) c-supplied-p))
   (format t "a: ~a; b: ~a; c: ~a; c-supplied-p: ~a~%" a b c c-supplied-p))
 
