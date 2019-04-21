@@ -4,6 +4,7 @@ import JSXComponent from './01-JSXComponent'
 import NonJSXComponent from './02-NonJSXComponent'
 import ClassComponent from './03-ClassComponent'
 import SimpleComponent from './04-SimpleComponent'
+import NestedComponent from './05-NestedComponent'
 
 class App extends React.Component {
   render() {
@@ -13,6 +14,7 @@ class App extends React.Component {
         <a href="#NonJSXComponent">02-NonJSXComponent</a>
         <a href="#ClassComponent">03-ClassComponent</a>
         <a href="#SimpleComponent">04-SimpleComponent</a>
+        <a href="#NestedComponent">05-NestedComponent</a>
         <hr />
       </nav>
     )
@@ -24,6 +26,7 @@ let components = {
   NonJSXComponent: NonJSXComponent,
   ClassComponent: ClassComponent,
   SimpleComponent: SimpleComponent,
+  NestedComponent: NestedComponent,
 }
 
 function renderApp() {
