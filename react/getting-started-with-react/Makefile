@@ -1,5 +1,5 @@
 01-hello-world: FORCE
-	make open FILE=01-hello-world.html	
+	make open FILE=01-hello-world.html
 
 02-create-react-app: FORCE
 	npx create-react-app $@; :
@@ -7,6 +7,9 @@
 
 03-hello-world: FORCE
 	diff -x node_modules -ru 02-create-react-app 03-hello-world | vim -R -
+	cd $@ && npm start
+
+04-components: FORCE
 	cd $@ && npm start
 
 open:

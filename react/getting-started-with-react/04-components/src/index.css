@@ -1,0 +1,4 @@
+body { color: #333 }
+nav a { margin-right: 1em }
+a:link, a:visited { color: #00f; text-decoration: none }
+a:hover, a:active { color: #66f; text-decoration: underline }
