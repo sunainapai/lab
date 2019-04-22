@@ -1,7 +1,8 @@
 // This example throws ReferenceError because x is not defined yet.
 ; (function () {
   try {
-    console.log('x:', x) // ReferenceError
+    // ReferenceError
+    console.log('x:', x) // eslint-disable-line no-undef
   } catch (e) {
     console.log('e:', e.toString())
   }
@@ -11,7 +12,8 @@ console.log()
 // This example does not throw ReferenceError because x is defined due
 // to variable hoisting.
 ; (function () {
-  console.log('x:', x) // undefined
+  // undefined
+  console.log('x:', x) // eslint-disable-line no-use-before-define
   var x = 10
   console.log('x:', x) // 10
 })()
@@ -21,7 +23,8 @@ console.log()
 // Variable hoisting does not happen with let keyword.
 ; (function () {
   try {
-    console.log('x:', x) // ReferenceError
+    // ReferenceError
+    console.log('x:', x) // eslint-disable-line no-use-before-define
     let x = 10
   } catch (e) {
     console.log('e:', e.toString())
@@ -34,7 +37,7 @@ console.log()
   let x = 10
   console.log('block 0: x:', x) // 10
 
-  {
+  { // eslint-disable-line no-lone-blocks
     x = 20
     console.log('block 1: x:', x) // 20
   }

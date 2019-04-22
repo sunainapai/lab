@@ -2,7 +2,8 @@
 // Variable hoisting does not happen with const keyword.
 ; (function () {
   try {
-    console.log('X:', X) // ReferenceError
+    // ReferenceError
+    console.log('X:', X) // eslint-disable-line no-use-before-define
     const X = 10
   } catch (e) {
     console.log('e:', e.toString())
@@ -33,7 +34,8 @@ console.log()
   // const X = 10
 
   try {
-    X = 20 // TypeError
+    // TypeError
+    X = 20 // eslint-disable-line no-const-assign
   } catch (e) {
     console.log('e:', e.toString())
   }
