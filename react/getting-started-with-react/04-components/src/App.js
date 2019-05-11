@@ -11,16 +11,19 @@ import StateComponent from './07-StateComponent'
 class App extends React.Component {
   render() {
     return (
-      <nav>
-        <a href="#JSXComponent">01-JSXComponent</a>
-        <a href="#NonJSXComponent">02-NonJSXComponent</a>
-        <a href="#ClassComponent">03-ClassComponent</a>
-        <a href="#SimpleComponent">04-SimpleComponent</a>
-        <a href="#NestedComponent">05-NestedComponent</a>
-        <a href="#PropsComponent">06-PropsComponent</a>
-        <a href="#StateComponent">07-StateComponent</a>
+      <div>
+        <nav>
+          <a href="#JSXComponent">01-JSXComponent</a>
+          <a href="#NonJSXComponent">02-NonJSXComponent</a>
+          <a href="#ClassComponent">03-ClassComponent</a>
+          <a href="#SimpleComponent">04-SimpleComponent</a>
+          <a href="#NestedComponent">05-NestedComponent</a>
+          <a href="#PropsComponent">06-PropsComponent</a>
+          <a href="#StateComponent">07-StateComponent</a>
+        </nav>
         <hr />
-      </nav>
+        <SelectedComponent />
+      </div>
     )
   }
 }
@@ -35,7 +38,7 @@ let components = {
   StateComponent: StateComponent,
 }
 
-function renderApp() {
+function SelectedComponent() {
   let hash = window.location.hash
   let name = hash === '' ? '' : hash.substring(1)
   let Component = components[name]
@@ -43,11 +46,13 @@ function renderApp() {
   if (typeof Component === 'undefined') {
     Component = () => <h1>Undefined Component</h1>
   }
-
-  ReactDOM.render(<div><App /><Component /></div>,
-                  document.getElementById('root'))
+ 
+  return <Component />
 }
 
-window.onhashchange = renderApp
+
+window.onhashchange = function () {
+   ReactDOM.render(<div><App /></div>, document.getElementById('root'))
+}
 
 export default App
