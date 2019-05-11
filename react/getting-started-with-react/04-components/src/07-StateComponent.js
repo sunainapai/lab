@@ -21,11 +21,17 @@ class StateDisplayComponent extends React.Component {
   }
 
   removeColor = index => {
+    console.log('removeColor() started; state:', this.state)
+
+    // The setState() call is asynchronous. The callback passed to it is
+    // called when it completes.
     this.setState({
       colors: this.state.colors.filter((color, i) => {
         return i !== index
       })
-    })
+    }, () => {console.log('setState() done; state:', this.state)})
+
+    console.log('removeColor() done; state:', this.state)
   }
 
   render() {
