@@ -13,8 +13,8 @@ docker stack ls
 docker service ls
 
 # $ docker stack ls
-# NAME                SERVICES
-# pyhttp-stack        1
+# NAME                SERVICES            ORCHESTRATOR
+# pyhttp-stack        1                   Swarm
 #
 # $ docker service ls
 # ID                  NAME                      MODE                REPLICAS            IMAGE                   PORTS
